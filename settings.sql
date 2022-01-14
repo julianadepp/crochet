@@ -1,0 +1,3 @@
+CREATE DATABASE crochet;
+CREATE USER crochetuser WITH PASSWORD 'crochet';
+GRANT ALL PRIVILEGES ON DATABASE crochet TO crochetuser;
