@@ -1,7 +1,10 @@
 <h2>{{ hook.get_size_display }}</h2>
 <img src="{{ MEDIA_URL }}{{ hook.hook_image.url }}" alt="hook pic" width="300px">
-<a href="">
+<a href="{% url 'hook_update' pk=hook.pk %}">
     Edit
+</a>
+<a href="{% url 'hook_delete' pk=hook.pk %}">
+    delete
 </a>
 <h4>Gauges with this hook:</h4>
 <ul>

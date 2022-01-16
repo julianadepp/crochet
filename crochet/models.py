@@ -12,3 +12,14 @@ class Hook(models.Model):
     hook_image = models.ImageField(upload_to='hooks')
     def __str__(self):
         return self.get_size_display()
+
+class Stitch(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    pattern_code = models.CharField(max_length=20, default='no code')
+    instructions = models.TextField()
+    notes = models.TextField()
+    related_stitches = models.ManyToManyField('self', null=True, blank=True,related_name='stitch')
+    stitch_image = models.ImageField(upload_to='stitches')
+    def __str__(self):
+        return self.name
