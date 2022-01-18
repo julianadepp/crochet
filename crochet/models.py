@@ -23,3 +23,37 @@ class Stitch(models.Model):
     stitch_image = models.ImageField(upload_to='stitches')
     def __str__(self):
         return self.name
+
+class Yarn(models.Model):
+    lace = (0, '0 - Lace')
+    superfine = (1, '1 - Superfine')
+    fine = (2, '2 - Fine')
+    light = (3, '3 - Light')
+    medium = (4, '4 - Medium')
+    bulky = (5, '5 - Bulky')
+    super = (6, '6 - Super Bulky')
+    jumbo = (7, '7 - Jumbo')
+    weight_choices = (lace, superfine, fine, light, medium, bulky, super, jumbo)
+
+    nickname = models.CharField(max_length=100, help_text='This is how your yarn will be referenced around the site! Could be the brand or something you associate with the yarn, like "Chunky Wool Yarn".')
+    weight = models.IntegerField(choices=weight_choices, max_length=100,)
+    weight_description = models.CharField(max_length=100, blank=True, help_text='please include any simple specifcs you would like here. For instance, weight choice <em>3 - Light</em> might include "DK, light worsted" here.')
+    material = models.CharField(max_length=100,)
+    brand = models.CharField(max_length=200, blank=True)
+    notes = models.TextField(default='No notes.',)
+    suggested_hooks = models.ManyToManyField(Hook, related_name='yarns', null=True, blank=True,)
+    yarn_image = models.TextField(default='https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/yarn-ball-karl-addison.jpg', help_text='this should be a link that leads to the image alone. To get this, find an image you like on the internet, then right click and select "Open Image in New Tab". Go to the newly opened tab and copy the full address from the browser address bar, then paste it here!')
+    def __str__(self):
+        return self.nickname
+
+class Gauge(models.Model):
+    title = models.CharField(max_length=100)
+    yarn = models.ForeignKey(Yarn, on_delete=models.PROTECT, related_name='gauges')
+    hook = models.ForeignKey(Hook, on_delete=models.PROTECT, related_name='hooks')
+    stitch = models.ForeignKey(Stitch, on_delete=models.PROTECT, related_name='stitches')
+    number_of_stitches = models.FloatField(max_decimal_places=2, )
+    notes = models.TextField()
+    gauge_image = models.ImageField(upload_to='gauges')
+    def __str__(self):
+        return self.title
+
