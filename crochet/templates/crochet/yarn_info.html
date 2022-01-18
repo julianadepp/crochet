@@ -1,0 +1,21 @@
+<h2>{{ yarn.nickname }}</h2>
+<h4>Weight: {{ yarn.get_weight_display }}, {{ yarn.weight_description }}</h4>
+<img src="{{yarn.yarn_image}}" alt="yarn pic" width="300px"><br/>
+<p>Material: {{ yarn.material }}</p> <br/>
+<p>Brand: {{ yarn.brand }}</p>
+
+<h4>Notes:</h4>
+<p>{{ yarn.notes }}</p>
+<h4>Suggested Hooks:</h4>
+<ul> {% for hook in yarn.suggested_hooks.all %}
+    <li>
+        <a href="{% url 'hook_info' pk=hook.pk %}">{{ hook.get_size_display }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'yarn_update' pk=yarn.pk %}">
+    Edit
+</a>
+<a href="{% url 'yarn_delete' pk=yarn.pk %}">
+    delete
+</a>

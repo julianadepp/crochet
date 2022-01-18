@@ -1,0 +1,19 @@
+<h2>{{ stitch.name }} ({{ stitch.pattern_code }})</h2>
+<h4>{{ stitch.description }}</h4>
+<img src="{{ MEDIA_URL }}{{ stitch.stitch_image.url }}" alt="stitch pic" width="300px">
+<p>for instructions: <a href="{{ stitch.instructions }}">{{ stitch.name }}</a></p>
+<h4>Notes:</h4>
+<p>{{ stitch.notes }}</p>
+<h4>Related Stitches:</h4>
+<ul> {% for stitch in stitch.related_stitches.all %}
+    <li>
+        <a href="{% url 'stitch_info' pk=stitch.pk %}">{{ stitch.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'stitch_update' pk=stitch.pk %}">
+    Edit
+</a>
+<a href="{% url 'stitch_delete' pk=stitch.pk %}">
+    delete
+</a>
