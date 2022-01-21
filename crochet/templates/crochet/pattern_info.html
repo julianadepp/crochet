@@ -1,0 +1,27 @@
+<h2>{{ pattern.name }}</h2>
+<h4>{{ pattern.description }}</h4>
+<h4>Hook: <a href="{% url 'hook_info' pk=pattern.hook.pk %}">{{ pattern.hook }}</a></h4>
+<h4>Yarn: </h4>
+<ul>{% for yarn in pattern.yarn.all %}
+    <li><a href="{% url 'yarn_info' pk=yarn.pk %}">{{ yarn.nickname }}</a></li>
+    {% endfor %}
+</ul>
+<h4>Stitch: </h4>
+<ul>{% for stitch in pattern.stitches.all %}
+    <li><a href="{% url 'stitch_info' pk=stitch.pk %}">{{ stitch.name }}</a></li>
+    {% endfor %}
+</ul>
+<h4>Gauge: <a href="{% url 'gauge_info' pk=pattern.gauge.pk %}">{{ pattern.gauge }}</a></h4>
+
+
+<img src="{{ MEDIA_URL }}{{ pattern.pattern_image.url }}" alt="pattern pic" width="300px">
+<p>for instructions: <a href="{{ pattern.instructions }}">{{ pattern.name }}</a></p>
+<h4>Notes:</h4>
+<p>{{ pattern.notes }}</p>
+
+<a href="{% url 'pattern_update' pk=pattern.pk %}">
+    Edit
+</a>
+<a href="{% url 'pattern_delete' pk=pattern.pk %}">
+    delete
+</a>

@@ -1,0 +1,9 @@
+<h2>Gauges <a href="{% url 'gauge_create' %}">+</a></h2>
+<ul>
+  {% for gauge in gauges %}
+  <li>
+    <a href="{% url 'gauge_info' pk=gauge.pk %}">{{ gauge.title }}</a> <br>
+    <img src="{{ MEDIA_URL }}{{ gauge.gauge_image.url }}" alt="gauge pic" width="100px">
+  </li>
+  {% endfor %}
+</ul>

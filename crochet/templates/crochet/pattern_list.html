@@ -1,0 +1,9 @@
+<h2>Patterns <a href="{% url 'pattern_create' %}">+</a></h2>
+<ul>
+  {% for pattern in patterns %}
+  <li>
+    <a href="{% url 'pattern_info' pk=pattern.pk %}">{{ pattern.name }}</a> <br>
+    <img src="{{ MEDIA_URL }}{{ pattern.pattern_image.url }}" alt="pattern pic" width="100px">
+  </li>
+  {% endfor %}
+</ul>

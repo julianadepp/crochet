@@ -9,6 +9,8 @@ psycopg2-binary = "*"
 pillow = "*"
 django-extensions = "*"
 ipython = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

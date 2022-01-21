@@ -1,0 +1,21 @@
+<h2>{{ gauge.title }}</h2>
+<h3>This gauge had {{ gauge.number_of_stitches }} stitches in one 4 inch section. </h3>
+<h4>Hook: <a href="{% url 'hook_info' pk=gauge.hook.pk %}">{{ gauge.hook }}</a></h4>
+<h4>Yarn: <a href="{% url 'yarn_info' pk=gauge.yarn.pk %}">{{ gauge.yarn }}</a></h4>
+<h4>Stitch: <a href="{% url 'stitch_info' pk=gauge.stitch.pk %}">{{ gauge.stitch }}</a></h4>
+<img src="{{ MEDIA_URL }}{{ gauge.gauge_image.url }}" alt="gauge pic" width="300px">
+<h4>Notes:</h4>
+<p>{{ gauge.notes }}</p>
+<h4>Patterns:</h4>
+<ul> {% for pattern in gauge.patterns.all %}
+    <li>
+        pattern go here
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'gauge_update' pk=gauge.pk %}">
+    Edit
+</a>
+<a href="{% url 'gauge_delete' pk=gauge.pk %}">
+    delete
+</a>

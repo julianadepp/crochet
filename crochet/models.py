@@ -49,11 +49,23 @@ class Yarn(models.Model):
 class Gauge(models.Model):
     title = models.CharField(max_length=100)
     yarn = models.ForeignKey(Yarn, on_delete=models.PROTECT, related_name='gauges')
-    hook = models.ForeignKey(Hook, on_delete=models.PROTECT, related_name='hooks')
-    stitch = models.ForeignKey(Stitch, on_delete=models.PROTECT, related_name='stitches')
-    number_of_stitches = models.FloatField(max_decimal_places=2, )
+    hook = models.ForeignKey(Hook, on_delete=models.PROTECT, related_name='gauges')
+    stitch = models.ForeignKey(Stitch, on_delete=models.PROTECT, related_name='gauges')
+    number_of_stitches = models.DecimalField(max_digits=5, decimal_places=2 )
     notes = models.TextField()
     gauge_image = models.ImageField(upload_to='gauges')
     def __str__(self):
         return self.title
 
+class Pattern(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    instructions = models.TextField()
+    notes = models.TextField()
+    stitches = models.ManyToManyField(Stitch, related_name='patterns')
+    yarn = models.ManyToManyField(Yarn, related_name='patterns')
+    hook = models.ForeignKey(Hook, on_delete=models.PROTECT, related_name='patterns')
+    gauge = models.ForeignKey(Gauge, on_delete=models.PROTECT, related_name='patterns')
+    pattern_image = models.ImageField(upload_to='patterns')
+    def __str__(self):
+        return self.name
