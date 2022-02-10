@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^xzn03o_sd_969veiv#=p4wt!npz00z)e07-4mfup%zykfj6o!'
+SECRET_KEY = os.environ.get("SECRET_KEY") #regenerated after accidental push to github
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ.get("MODE") == "dev" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get("WHITE_LIST").split(',')]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crochet',
+    'accounts',
     'imagekit',
     'django_extensions',
     'rest_framework',
@@ -145,6 +146,7 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS HEADERS
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_LIST")
+
+#for accounts app
+LOGIN_REDIRECT_URL = '/'
