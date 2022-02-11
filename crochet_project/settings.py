@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crochet',
     'accounts',
-    'imagekit',
     'django_extensions',
     'rest_framework',
     'corsheaders',
