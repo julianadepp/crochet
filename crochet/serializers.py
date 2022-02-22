@@ -1,17 +1,22 @@
 from rest_framework import serializers
 from .models import Hook, Yarn, Stitch, Gauge, Pattern
 
+
+
+
+
 class HookSerializer(serializers.HyperlinkedModelSerializer):
     yarns = serializers.HyperlinkedRelatedField(
         view_name='yarn_info',
         many=True,
-        queryset=Hook.objects.all()
+        queryset=Yarn.objects.all()
     )
     size_name = serializers.CharField(source='get_size_display', read_only=True)
     yarn_ids = serializers.PrimaryKeyRelatedField(source='yarns', many=True, queryset=Yarn.objects.all())
     class Meta:
         model = Hook
         fields = ('id', 'size', 'hook_image', 'yarns', 'yarn_ids', 'size_name')
+    
 
 
 class YarnSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,6 +1,12 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 # Create your models here.
+
+def image_size(image):
+    max=1024*500 #500kb
+    if image.size > max:
+        raise ValidationError('Image must be 500kb or less!')
+
 class Hook(models.Model):
     metric_choices = ((1, '.75 mm'),(2, '.85 mm'), (3, '1 mm'), (4, '1.1 mm'), (5, '1.25 mm'), (6, '1.3 mm'), (7, '1.4 mm'), (8, '1.5 mm'), (9, '1.65 mm'), (10, '1.75 mm'), (11, '1.8 mm'), (12, '1.9 mm'), (13, '.75 mm'), (14, '2.1 mm'), (15, '2.25 mm'), (16, '2.5 mm'), (17, '2.75 mm'), (18, '3 mm'), (19, '3.25 mm'), (20, '3.5 mm'), (21, '3.75 mm'), (22, '4 mm'), (23, '4.25 mm'), (24, '4.5 mm'), (25, '5 mm'), (26, '5.5 mm'), (27, '6 mm'), (28, '6.5 mm'), (29, '7 mm'), (30, '7.5 mm'), (31, '8 mm'), (32, '9 mm'), (33, '10 mm'), (34, '12 mm'), (35, '15 mm'), (36, '16 mm'), (37, '19 mm'), (38, '25 mm'), )
 
@@ -9,7 +15,7 @@ class Hook(models.Model):
     hook_choices = [('Metric', metric_choices), ('US', us_choices)]
 
     size = models.IntegerField(choices=hook_choices)
-    hook_image = models.ImageField(upload_to='hooks')
+    hook_image = models.ImageField(upload_to='hooks', validators=[image_size])
     def __str__(self):
         return self.get_size_display()
 
